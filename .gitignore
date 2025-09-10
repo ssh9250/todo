@@ -1,0 +1,126 @@
+# ---- Python bytecode ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- C extensions ----
+*.so
+
+# ---- Packaging ----
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
+
+# ---- Virtual Environments ----
+venv/
+.venv/
+.venv*/
+.env/
+.env*/
+.env.local
+.env.*.local
+
+# ---- Django ----
+*.log
+local_settings.py
+CACHE/
+# Django backup files
+**/migrations/__pycache__/
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/*.pyd
+**/migrations/*.pyw
+**/migrations/*.pyz
+**/migrations/*.pywz
+# Django cache files
+.cache/
+django_cache/
+# SQLite DBs
+backend/db.sqlite3
+backend/db.sqlite3-journal
+**/db.sqlite3
+**/db.sqlite3-journal
+# Local DB setting files
+.pgpass
+.my.cnf
+# Celery files
+celerybeat-schedule
+celerybeat.pid
+# Collected static/media
+static/
+staticfiles/
+static_root/
+staticfiles_root/
+media/
+
+# ---- Tests & Coverage ----
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+pytestdebug.log
+coverage/
+
+# ---- Type checkers / linters ----
+.mypy_cache/
+.pyre/
+.pytype/
+ruff_cache/
+.pyright/
+.dmypy.json
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.iml
+
+# ---- macOS ----
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# ---- Node (optional frontend) ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Docker overrides ----
+docker-compose.override.yml
+
+# ---- Secrets / Env files ----
+*.env
+*.env.*
+.envrc
+*.secret
+*.secrets
+
+# ---- Swap files ----
+*.swp
+*.swo
