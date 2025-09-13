@@ -35,4 +35,12 @@ def todo_create(request):
 def todo_toggle(request, pk):
     if request.method == 'POST':
         todo = get_object_or_404(Todo, pk=pk)
+        todo.completed = not todo.completed
+        todo.save()
+        return redirect('todo_list')
         
+def todo_delete(request, pk):
+    if request.method == 'POST':
+        todo = get_object_or_404(Todo, pk=pk)
+        todo.delete()
+        return redirect('todo_list')
