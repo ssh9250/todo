@@ -1,46 +1,68 @@
+from django.core.serializers import serialize
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from .models import Todo
+from rest_framework import generics, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-def todo_list(request):
+from .models import Todo
+from .serializers import TodoCreateSerializer, TodoSerializer
+
+class TodoListCreateView(generics.ListCreateAPIView):
+    """ Todo 목록 조회 및 생성 API """
+    queryset = Todo.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return TodoCreateSerializer
+        return TodoSerializer
+
+    def list(self, request, *args, **kwargs):
+        """ GET /api/todos/ - Todo 목록 조회 """
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+
+        return Response(
+            {
+                'results': serializer.data,
+                'total_count': queryset.count(),
+                'completed_count': queryset.filter(completed=True).count(),
+            }
+        )
+
+    def create(self, request, *args, **kwargs):
+        """ POST /api/todos/ - 새 Todo 생성 """
+        serializer = TodoCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            todo = serializer.save()
+            return Response(
+                TodoSerializer(todo).data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TodoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """ Todo 상세 조회, 수정, 삭제 API """
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+    lookup_field = 'pk'
+
+@api_view(['PATCH'])
+def todo_toggle(request, pk):
+    """ PATCH /api/todos/{id}/toggle/ - Todo 완료 상태 토글 """
+    todo = get_object_or_404(Todo, pk=pk)
+    todo.completed = not todo.completed
+    todo.save()
+
+    serializer = TodoSerializer(todo)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def todo_stats(request):
+    """ GET /api/todos/stats/ - Todo 통계 정보 """
     todos = Todo.objects.all()
-    context = {
-        'todos': todos,
+    return Response({
         'total_count': todos.count(),
         'completed_count': todos.filter(completed=True).count(),
-    }
-    return render(request, 'todos/todo_list.html', context)
-
-def todo_detail(request, pk):
-    todo = get_object_or_404(Todo, pk=pk)# 404 에러 발생 시 404 페이지 반환
-    context = {
-        'todo': todo,
-    }
-    return render(request, 'todos/todo_detail.html', context)
-
-def todo_create(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description', '')
-        
-        if title:
-            Todo.objects.create(
-                title=title,
-                description=description,
-            )
-            return redirect('todo_list')
-
-    return render(request, 'todos/todo_create.html')
-
-def todo_toggle(request, pk):
-    if request.method == 'POST':
-        todo = get_object_or_404(Todo, pk=pk)
-        todo.completed = not todo.completed
-        todo.save()
-        return redirect('todo_list')
-        
-def todo_delete(request, pk):
-    if request.method == 'POST':
-        todo = get_object_or_404(Todo, pk=pk)
-        todo.delete()
-        return redirect('todo_list')
+        'pending_count': todos.filter(completed=False).count(),
+    })

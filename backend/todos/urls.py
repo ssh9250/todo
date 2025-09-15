@@ -2,9 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.todo_list, name='todo_list'),
-    path('<int:pk>/', views.todo_detail, name='todo_detail'),
-    path('create/', views.todo_create, name='todo_create'),
-    path('<int:pk>/toggle/', views.todo_toggle, name='todo_toggle'),
-    path('<int:pk>/delete/', views.todo_delete, name='todo_delete'),
+    path('', views.TodoListCreateView.as_view(), name='todo-list-create'),
+    path('<int:pk>/', views.TodoDetailView.as_view(), name = 'todo-detail'),
+    path('<int:pk>//toggle/', views.todo_toggle, name = 'todo-toggle'),
+    path('stats/', views.todo_stats, name = 'todo-stats'),
+
 ]
