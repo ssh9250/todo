@@ -6,7 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Todo
-from .serializers import TodoCreateSerializer, TodoSerializer
+from .serializers import TodoCreateSerializer, TodoSerializer, TodoUpdateSerializer
+
 
 class TodoListCreateView(generics.ListCreateAPIView):
     """ Todo 목록 조회 및 생성 API """
@@ -14,8 +15,10 @@ class TodoListCreateView(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
+            return TodoListCreateView
+        elif self.request.method == 'POST':
             return TodoCreateSerializer
-        return TodoSerializer
+        return TodoUpdateSerializer
 
     def list(self, request, *args, **kwargs):
         """ GET /api/todos/ - Todo 목록 조회 """
