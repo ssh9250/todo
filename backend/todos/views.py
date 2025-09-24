@@ -15,7 +15,7 @@ class TodoListCreateView(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
-            return TodoListCreateView
+            return TodoSerializer
         elif self.request.method == 'POST':
             return TodoCreateSerializer
         return TodoUpdateSerializer

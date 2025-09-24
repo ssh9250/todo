@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
+
 class Todo(models.Model):
     title = models.CharField(max_length=200, verbose_name='제목', default='제목을 입력하세요.')
     description = models.TextField(blank=True, null=True, verbose_name='설명')

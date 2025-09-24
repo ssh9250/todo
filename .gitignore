@@ -124,3 +124,7 @@ docker-compose.override.yml
 # ---- Swap files ----
 *.swp
 *.swo
+
+
+# ---- Frontend ----
+frontend
