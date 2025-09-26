@@ -9,6 +9,8 @@ class BaseTodoSerializer(serializers.ModelSerializer):
     def validate_title(self, value):
         if not value or not value.strip():
             raise serializers.ValidationError("제목은 필수입니다.")
+        if len(value.strip()) > 100:
+            raise serializers.ValidationError("제목은 100자를 초과할 수 없습니다.")
         return value.strip()
 
 
@@ -38,10 +40,6 @@ class TodoCreateSerializer(BaseTodoSerializer):
 
     def validate_title(self, value):
         value = super().validate_title(value)
-
-        if len(value.strip()) > 100:
-            raise serializers.ValidationError("제목은 100자를 초과할 수 없습니다.")
-
         return value
     
     def create(self, validated_data):
@@ -62,10 +60,7 @@ class TodoUpdateSerializer(BaseTodoSerializer):
 
     def validate_title(self, value):
         value = super().validate_title(value)
-
-        if len(value.strip()) > 100:
-            raise serializers.ValidationError("제목은 100자를 초과할 수 없습니다.")
-
+        
         return value.strip() if value else value
 
     def update(self, instance, validated_data):
