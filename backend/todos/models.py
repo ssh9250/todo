@@ -6,6 +6,7 @@ class Todo(models.Model):
     title = models.CharField(max_length=200, verbose_name='제목', default='제목을 입력하세요.')
     description = models.TextField(blank=True, null=True, verbose_name='설명')
     completed = models.BooleanField(default=False, verbose_name='완료 여부')
+    hidden = models.BooleanField(default=False, verbose_name='숨김 여부')
     created_at = models.DateTimeField(default=timezone.now, verbose_name='생성일')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='수정일')
 

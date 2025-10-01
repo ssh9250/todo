@@ -18,10 +18,9 @@ class TodoListSerializer(BaseTodoSerializer):
     """
     Simplified serializer for list views
     """
-
     class Meta:
         model = Todo
-        fields = ['id', 'title', 'completed', 'created_at']
+        fields = ['id', 'title', 'completed', 'created_at', 'hidden']
 
 
 class TodoDetailSerializer(BaseTodoSerializer):
@@ -29,7 +28,7 @@ class TodoDetailSerializer(BaseTodoSerializer):
     class Meta:
         model = Todo
         fields = '__all__'
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'hidden']
 
 
 class TodoCreateSerializer(BaseTodoSerializer):
@@ -56,11 +55,11 @@ class TodoUpdateSerializer(BaseTodoSerializer):
 
     class Meta:
         model = Todo
-        fields = ['title', 'description', 'completed']
+        fields = ['title', 'description', 'completed', 'hidden']
 
     def validate_title(self, value):
         value = super().validate_title(value)
-        
+
         return value.strip() if value else value
 
     def update(self, instance, validated_data):
