@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Todo(models.Model):
-    title = models.CharField(max_length=200, verbose_name='제목', default='제목을 입력하세요.')
+    title = models.CharField(max_length=20, verbose_name='제목', default='제목을 입력하세요.')
     description = models.TextField(blank=True, null=True, verbose_name='설명')
     completed = models.BooleanField(default=False, verbose_name='완료 여부')
     hidden = models.BooleanField(default=False, verbose_name='숨김 여부')

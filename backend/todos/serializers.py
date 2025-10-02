@@ -10,7 +10,7 @@ class BaseTodoSerializer(serializers.ModelSerializer):
         if not value or not value.strip():
             raise serializers.ValidationError("제목은 필수입니다.")
         if len(value.strip()) > 100:
-            raise serializers.ValidationError("제목은 100자를 초과할 수 없습니다.")
+            raise serializers.ValidationError("제목은 20자를 초과할 수 없습니다.")
         return value.strip()
 
 
