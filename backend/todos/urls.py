@@ -9,7 +9,7 @@ router.register('', TodoViewSet, basename='todo')
 urlpatterns = [
     path('', include(router.urls)),
 ]
-# http://localhost:8000/api/todos/ 테스트 해보기
+# http://localhost:8000/api/todos/ 테스트 해보기ㅇㄹㅇㄹㅇㄹ
 
 
 '''
