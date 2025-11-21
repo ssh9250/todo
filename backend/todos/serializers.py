@@ -9,7 +9,7 @@ class BaseTodoSerializer(serializers.ModelSerializer):
     def validate_title(self, value):
         if not value or not value.strip():
             raise serializers.ValidationError("제목은 필수입니다.")
-        if len(value.strip()) > 100:
+        if len(value.strip()) > 20:
             raise serializers.ValidationError("제목은 20자를 초과할 수 없습니다.")
         return value.strip()
 

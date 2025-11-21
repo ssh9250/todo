@@ -2,25 +2,17 @@
 name = "backend"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "ssh9250",email = "sh9250r@gmail.com"}
-]
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "django (>=5.2.8,<6.0.0)",
-    "djangorestframework (>=3.16.1,<4.0.0)",
-    "django-cors-headers (>=4.9.0,<5.0.0)"
+    "django>=5.2.8",
+    "djangorestframework>=3.16.1",
+    "django-cors-headers>=4.9.0",
 ]
-
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "pytest (>=9.0.1,<10.0.0)",
-    "black (>=25.11.0,<26.0.0)",
-    "pylint (>=4.0.3,<5.0.0)"
+    "pytest>=9.0.1",
+    "black>=25.11.0",
+    "pylint>=4.0.3",
 ]
